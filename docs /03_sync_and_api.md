@@ -2,6 +2,21 @@
 
 В данном разделе описан базовый процесс синхронизации изменений между мобильным клиентом и сервером. Для разрешения конфликтов используется подход **Last Write Wins** (побеждает последнее изменение).
 
+## Sequence Diagram (Сценарий синхронизации при добавлении товара)
+
+```mermaid
+sequenceDiagram
+    participant C as Mobile Client
+    participant S as Server
+    participant DB as Database
+
+    C->>S: POST /api/v1/lists/{list_id}/items (Добавить товар)
+    S->>DB: INSERT INTO items
+    DB-->>S: OK
+    S-->>C: 201 Created (JSON с данными товара)
+    
+    Note over C,S: При потере связи клиент сохраняет запрос в локальную очередь и повторяет попытку позже.
+```
 
 ## Описание базовых API-методов
 
