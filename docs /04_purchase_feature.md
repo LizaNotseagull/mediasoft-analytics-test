@@ -19,3 +19,23 @@ classDiagram
     }
     ShoppingList "1" *-- "many" Item
 ```
+## API Метод для покупки
+
+**Запрос:** `PATCH /api/v1/lists/{list_id}/items/{item_id}/purchase`
+**Заголовки:** `Authorization: Bearer <token>`, `Content-Type: application/json`
+
+**Тело запроса:**
+```json
+{
+  "is_bought": true
+}
+```
+**Успешный ответ(200 OK):**
+```json
+{
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "name": "Молоко",
+  "is_bought": true,
+  "updated_at": "2026-11-15T10:00:00Z"
+}
+```
